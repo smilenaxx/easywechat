@@ -85,8 +85,8 @@ def get_top_url(top_name):
 				print(top_name + ':antispider---' + 'get_top_url')
 		
 		#此IP不好使，换一个
-		except urllib.error.HTTPError as e:
-			print('except:',e)
+		except urllib.error.URLError as e:
+			print(e.reason)
 		
 	return name_real_url
 
