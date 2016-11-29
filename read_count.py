@@ -186,7 +186,15 @@ def campare_data(list,dict):
 			
 			
 #主函数
-def read_main():	 
+def read_main():	
+	
+	#秀恩爱
+	anwser = input('你是不是马傲雪(yes/no):')
+	if anwser == 'yes':
+		print('I LOVE U')
+		print('好好工作~')
+	else:
+		print('好好工作别偷懒,马总监在看着你')
 	
 	#得到时间宽度(倒叙)
 	find_end_str = input('请输入需要查找的开始时间(xxxx-xx-xx):')
