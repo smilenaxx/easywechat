@@ -50,7 +50,9 @@ def ip_open_url(url):
 		"https" : proxyMeta,
 	})
 
-	opener = urllib.request.build_opener(proxy_handler)
+	cookie = CookieJar()
+	
+	opener = urllib.request.build_opener(proxy_handler,urllib.request.HTTPCookieProcessor)
 	opener.addheaders = [("Proxy-Switch-Ip", "yes")]
 	opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.1708.400 QQBrowser/9.5.9635.400')]
 
@@ -228,26 +230,28 @@ def read_main():
 		each_url = get_top_url(name[0]) #用代理ip能正确读出url
 		#搜索到了公众号
 		if each_url:
-			each_html =	head_open_url(each_url) #打开url
+			while 1:
+				try:
+					each_html =	ip_open_url(each_url)
+					if '验证码' in each_html:
+						pass
+						#print(name[0] + ':antispider---重试')
+					else:
+						break
+
+				except urllib.error.HTTPError as e:
+					pass
+				except urllib.error.URLError as e:
+					pass
+				except TimeoutError as e:
+					pass
+				except OSError as e:
+					pass
+
 			main_all = get_factdata(each_html,find_start,find_end)
-			#main/all数据为0/0,有三种可能
-			if main_all == '0/0':
-				#在进入公众号的时候被antispider发现了
-				if '验证码' in each_html:
-					print(name[0] + ':antispider')
-				#该公众号这段时间没有数据
-				elif name[0] == '幼儿园教师':
-					final_list_ele = '%s:%s'%(name[0],main_all)
-					print('公众号："'+name[0]+'"不准确,请手动验证')
-					final_list_ele = '%s:%s'%(name[0],main_all)
-					print('%s.'%top_num,final_list_ele)
-				else:
-					final_list_ele = '%s:%s'%(name[0],main_all)
-					print('%s.'%top_num,final_list_ele)
-			#main/all数据不为0/0
-			else:
-				final_list_ele = '%s:%s'%(name[0],main_all)
-				print('%s.'%top_num,final_list_ele)
+
+			final_list_ele = '%s:%s'%(name[0],main_all)
+			print('%s.'%top_num,final_list_ele)
 		#搜索不到公众号
 		else:
 			print('%s.%s:未搜索到该公众号'%(top_num,name[0]))
