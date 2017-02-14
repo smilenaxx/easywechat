@@ -69,9 +69,11 @@ def get_top_url(top_name):
 	name_url = 'http://weixin.sogou.com/weixin?type=1&query=%s&ie=utf8&_sug_=n&_sug_type_='%top_urlname
 	name_real_url =''
 	
-	while 1:
-		
+	i = 0
+	while i < 5:
+	
 		try:
+
 			name_html = ip_open_url(name_url)#打开url
 			p = re.compile('href="([^"]*)"><em><!--red_beg-->' + top_name + '<!--red_end--></em></a>')
 			#搜索到公众号并成功获取url
@@ -85,6 +87,11 @@ def get_top_url(top_name):
 			#在搜索公众号的时候被antispider发现了
 			else:
 				print(top_name + ':antispider---' + 'get_top_url')
+				i += 1
+				if i == 5:
+					print('pass')
+
+
 			
 		#此IP不好使，换一个
 		except urllib.error.HTTPError as e:
@@ -95,7 +102,7 @@ def get_top_url(top_name):
 			pass
 		except OSError as e:
 			pass
-		
+
 		
 	return name_real_url
 
@@ -214,7 +221,7 @@ def read_main():
 	n2 = int(input('排行榜结束名次(1-100):'))
 	
 	#url
-	url = "http://112.126.82.29/pubranking/week.html?scode=babybook"
+	url = "http://www.wxranking.com/pubranking/week.html?scode=babybook"
 	each_url = ''
 	final_list_ele = ''
 	
