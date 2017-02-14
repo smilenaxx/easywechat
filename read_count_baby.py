@@ -50,9 +50,9 @@ def ip_open_url(url):
 		"https" : proxyMeta,
 	})
 
-	cookie = CookieJar()
+	#cookie = CookieJar()
 	
-	opener = urllib.request.build_opener(proxy_handler,urllib.request.HTTPCookieProcessor)
+	opener = urllib.request.build_opener(proxy_handler)#,urllib.request.HTTPCookieProcessor)
 	opener.addheaders = [("Proxy-Switch-Ip", "yes")]
 	opener.addheaders = [('User-Agent', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.104 Safari/537.36 Core/1.53.1708.400 QQBrowser/9.5.9635.400')]
 
@@ -262,7 +262,7 @@ def read_main():
 		
 		top_num += 1 #排名
 
-		time.sleep(0.5) #延时1秒
+		time.sleep(1) #延时1秒
 
 	#为了避免发生异常程序中断，所以从数据完全取得后，再进行比较
 	do_compare = input("是否进行比较(yes/no):")

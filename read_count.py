@@ -218,7 +218,7 @@ def read_main():
 	n2 = int(input('排行榜结束名次(1-100):'))
 	
 	#url
-	url = "http://112.126.82.29/pubranking/week.html?scode=edupress"
+	url = "http://www.wxranking.com/pubranking/week.html?scode=edupress"
 	each_url = ''
 	final_list_ele = ''
 	
